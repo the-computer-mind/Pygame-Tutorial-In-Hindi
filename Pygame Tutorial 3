@@ -1,0 +1,44 @@
+import pygame
+pygame.init()
+clock=pygame.time.Clock()
+  #display_surface
+gd=pygame.display.set_mode((800,600))
+white=(255,255,255)
+black=(0,0,0)
+red=(255,0,0)
+
+def Message(size,mess,x_pos,y_pos):
+    font=pygame.font.SysFont(None,size)
+    render=font.render(mess,True,white)
+    gd.blit(render , (x_pos,y_pos))
+    pygame.display.update()
+
+Message(100,"START",150,100)
+clock.tick(1)
+
+def Game_loop():
+   x=300
+   y=200
+   x_change=0
+   game_over=False
+   while game_over==False:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            game_over=True
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_LEFT:
+                x_change=+10
+            elif event.key==pygame.K_RIGHT:
+                x_change=-10
+        if event.type==pygame.KEYUP:
+            if event.key==pygame.K_LEFT or event.key==pygame.K_RIGHT:
+                x_change=0
+    gd.fill(black)
+    pygame.draw.rect(gd,red,[x,y,50,50])
+    x=x-x_change
+    clock.tick(50)
+    pygame.display.update()
+
+Game_loop()
+pygame.quit()
+quit()
